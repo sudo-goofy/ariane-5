@@ -361,6 +361,9 @@
 
     </main>
 
+    <!-- Unauffälliger Hilfe-Button: nimmt die Recherche zu short ab (Differenzierung nach unten) -->
+    <button id="shortHelpBtn" aria-label="Hilfe zum Datentyp" title="Hilfe" class="fixed bottom-3 right-3 z-40 w-7 h-7 rounded-full border border-gray-400 text-gray-400 text-sm font-bold bg-transparent opacity-40 hover:opacity-100 hover:border-black hover:text-black transition-opacity">?</button>
+
     <!-- Code Modal Overlay -->
     <div id="codeModal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-center items-center p-4 backdrop-blur-sm">
         <div class="blease-box bg-white max-w-2xl w-full flex flex-col relative transform scale-100 transition-transform">
@@ -548,6 +551,10 @@ System.out.println("Uebertragener Wert: " + sensorWert);
                 title: "Type-Cast (Typumwandlung)",
                 text: "Mit einem Cast erzwingt man in Java die Umwandlung eines Datentyps in einen anderen (z.B. <code>(int) 3.7</code> ergibt 3). <b>Achtung:</b> Ist der Ziel-Datentyp zu klein für die Zahl, kommt es zum Datenverlust (Überlauf): Die Zahl springt auf einen völlig falschen Wert – oft sogar ins Negative! Java meldet dabei keinen Fehler.<span class='block mt-4 text-base font-normal'>Mehr dazu: <a href='https://sudo-goofy.github.io/java-beginner/kapitel/03-variablen.html#casting' target='_blank' rel='noopener noreferrer' class='underline'>Was ist Casting?</a></span>"
             },
+            "short": {
+                title: "Datentyp short",
+                text: "<b>short</b> ist ein Datentyp für ganze Zahlen mit nur <b>16 Bit</b>. Er kann positive und negative Zahlen speichern.<br><br>Wertebereich: <b>−32.768 bis +32.767</b><br><br>Ist eine Zahl größer, passt sie nicht hinein: Beim Cast läuft der Wert über und springt auf einen falschen Wert – z.B. wird aus 32.768 plötzlich −32.768."
+            },
             "hilfe": {
                 title: "Hilfekarten",
                 text: "Genau so funktioniert es: Klickt auf einen markierten Begriff, um eine kurze Erklärung zu bekommen. Mit dem X oder der Esc-Taste schließt ihr das Fenster wieder."
@@ -574,6 +581,13 @@ System.out.println("Uebertragener Wert: " + sensorWert);
                     openInfo();
                 }
             });
+        });
+
+        // Fragezeichen-Button unten rechts öffnet die short-Erklärung
+        document.getElementById('shortHelpBtn').addEventListener('click', () => {
+            infoTitle.innerHTML = glossary.short.title;
+            infoText.innerHTML = glossary.short.text;
+            infoModal.classList.remove('hidden');
         });
 
         // Schließen-Logik für das Info-Modal
