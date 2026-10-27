@@ -128,6 +128,28 @@
             align-items: center;
         }
 
+        /* Aufklappbare Bereiche (Auftrag, Expertenaufgabe) */
+        details > summary {
+            list-style: none;
+            cursor: pointer;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        .toggle-icon {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        details[open] > summary .toggle-icon {
+            transform: rotate(180deg);
+        }
+        details[open] > summary .closed-hint {
+            display: none;
+        }
+        details > summary:hover .closed-hint {
+            background-color: var(--accent-yellow);
+        }
+
         /* Highlight-Klasse für anklickbare Begriffe */
         .keyword-link {
             border-bottom: 2px dashed var(--accent-red);
@@ -184,18 +206,27 @@
                 </div>
             </div>
             <div class="p-6">
-                <p class="text-lg font-semibold leading-relaxed">
-                    <strong class="uppercase border-b-2 border-black">Einsatzprotokoll:</strong><br>
-                    Das Notfall-Briefing ist abgeschlossen. Ihr kennt die Lage von Flug 501. Das Trümmerfeld ist gesichert, das Directorate wartet auf Antworten.
-                </p>
-                <p class="text-lg font-semibold leading-relaxed mt-4">
-                    <strong class="uppercase border-b-2 border-black">Nächste Schritte:</strong><br>
-                    Holt euch den Code aus der gecrashten <code class="bg-black text-green-400 px-2 py-1 border-2 border-black rounded mx-1">Navigation.java</code>. 
-                    Überschlagt die berechneten Werte erst im Kopf und bildet eine Hypothese. Kopiert den Code dann in eure IDE und führt ihn aus. 
-                    Gleicht eure Erwartung mit der echten Ausgabe ab und bereitet den Bug-Report vor.
-                </p>
-                <p class="text-base font-semibold leading-relaxed mt-4">
-                    💡 Tipp: Begriffe mit <span class="keyword-link" data-keyword="hilfe">gestrichelter Markierung</span> könnt ihr anklicken – dann öffnet sich eine Hilfekarte.
+                <strong class="uppercase border-b-2 border-black text-lg">Eure Schritte:</strong>
+                <ol class="mt-4 space-y-3 text-lg font-semibold">
+                    <li class="flex items-start gap-3">
+                        <span class="bg-black text-white px-2 py-0.5 rounded text-sm font-mono mt-1 shrink-0">1</span>
+                        <span>Code holen: Klickt unten auf <em>„Quellcode extrahieren“</em>.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="bg-black text-white px-2 py-0.5 rounded text-sm font-mono mt-1 shrink-0">2</span>
+                        <span>Hypothese: Welcher Wert wird ausgegeben? Erst im Kopf überschlagen und notieren!</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="bg-black text-white px-2 py-0.5 rounded text-sm font-mono mt-1 shrink-0">3</span>
+                        <span>Testen: Code in der IDE ausführen und mit eurer Hypothese vergleichen.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="bg-black text-white px-2 py-0.5 rounded text-sm font-mono mt-1 shrink-0">4</span>
+                        <span>Erst dann: Ganz unten den Auftrag für den Bug-Report öffnen.</span>
+                    </li>
+                </ol>
+                <p class="text-sm font-semibold leading-relaxed mt-5 text-gray-700">
+                    💡 Begriffe mit <span class="keyword-link" data-keyword="hilfe">gestrichelter Markierung</span> könnt ihr anklicken.
                 </p>
             </div>
         </div>
@@ -216,7 +247,7 @@
                 <span>🌐 ESA_INTRANET.LNK</span>
             </div>
             <div class="p-6 flex-grow flex flex-col justify-center">
-                <p class="mb-4 font-semibold text-sm">Die alten <span class="keyword-link" data-keyword="legacy">Legacy-Datenbanken</span> sind offline. Um herauszufinden, warum das System abgestürzt ist, müsst ihr die Systemhandbücher wälzen:</p>
+                <p class="mb-4 font-semibold text-sm">Nicht weitergekommen? Die Antworten stehen in den Systemhandbüchern zum <span class="keyword-link" data-keyword="legacy">Legacy-System</span>:</p>
                 
                 <div class="space-y-4">
                     <!-- Option 1: Web Link -->
@@ -249,10 +280,17 @@
         </div>
 
         <!-- Mission Deliverable: Report Assignment -->
-        <div class="blease-box flex flex-col md:col-span-2 mb-12 bg-gray-50 relative overflow-hidden">
-            <div class="win-titlebar" style="background-color: var(--accent-red);">
-                <span>📝 C:\MISSION\AUFTRAG_REPORT.TXT</span>
-            </div>
+        <details class="blease-box md:col-span-2 mb-12 bg-gray-50 relative overflow-hidden">
+            <summary>
+                <div class="win-titlebar" style="background-color: var(--accent-red);">
+                    <span>📝 C:\MISSION\AUFTRAG_REPORT.TXT</span>
+                    <span class="toggle-icon text-xl">▼</span>
+                </div>
+                <p class="closed-hint p-5 text-center font-semibold">
+                    <span class="text-xl font-bold uppercase block mb-1">Schritt 4: Auftrag öffnen</span>
+                    Erst öffnen, wenn ihr den Code in der IDE getestet habt.
+                </p>
+            </summary>
             <div class="p-8 md:p-10 relative z-10 flex flex-col items-center text-center">
                 <svg class="absolute -left-10 -top-10 w-48 h-48 opacity-10" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="45" stroke="black" stroke-width="4" fill="none" stroke-dasharray="10 5" />
@@ -298,9 +336,12 @@
                     </ul>
 
                     <!-- Expertenaufgabe (Differenzierung nach oben) -->
-                    <div class="mt-6 p-4 border-2 border-dashed border-black rounded-lg bg-yellow-50">
-                        <strong class="uppercase block mb-2">🚀 Expertenaufgabe: Der zweite 16-Bit-Typ</strong>
-                        <p class="font-semibold">
+                    <details class="mt-6 p-4 border-2 border-dashed border-black rounded-lg bg-yellow-50">
+                        <summary class="flex justify-between items-center gap-3">
+                            <strong class="uppercase">🚀 Schon fertig? Expertenaufgabe</strong>
+                            <span class="toggle-icon">▼</span>
+                        </summary>
+                        <p class="font-semibold mt-3">
                             Java besitzt neben <code class="bg-black text-green-400 px-1 rounded">short</code> noch einen zweiten Datentyp mit genau 16 Bit. Findet ihn heraus.
                         </p>
                         <ul class="list-disc ml-6 mt-2 space-y-1 font-semibold">
@@ -308,10 +349,10 @@
                             <li>Vergleicht die Bitmuster beider 16-Bit-Typen, z.B. mit <code class="bg-black text-green-400 px-1 rounded">Integer.toBinaryString(...)</code> (schaut auf die letzten 16 Stellen). Warum ist der eine Wert negativ und der andere nicht?</li>
                             <li>Wäre das ein guter Patch für die ESA? Testet auch eine negative Geschwindigkeit und einen größeren Faktor.</li>
                         </ul>
-                    </div>
+                    </details>
                 </div>
             </div>
-        </div>
+        </details>
 
     </main>
 
