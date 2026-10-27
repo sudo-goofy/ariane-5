@@ -251,7 +251,7 @@
                 <span>🌐 ESA_INTRANET.LNK</span>
             </div>
             <div class="p-6 flex-grow flex flex-col justify-center">
-                <p class="mb-4 font-semibold text-sm">Nicht weitergekommen? Die Antworten stehen in den Systemhandbüchern zum <span class="keyword-link" data-keyword="legacy">Legacy-System</span>:</p>
+                <p class="mb-4 font-semibold text-sm">Nicht weitergekommen? In den Systemhandbüchern zum <span class="keyword-link" data-keyword="legacy">Legacy-System</span> findet ihr die Grundlagen. Aber Achtung: Nicht alles steht dort – manches müsst ihr selbst recherchieren!</p>
                 
                 <div class="space-y-4">
                     <!-- Option 1: Web Link -->
@@ -327,7 +327,8 @@
                             <span class="bg-black text-white px-2 py-1 rounded text-sm font-mono mt-1">2</span>
                             <div>
                                 <strong class="uppercase text-red-600 block">Root Cause (Die Ursache)</strong>
-                                Warum gibt das Programm einen falschen Wert aus, obwohl keine Fehlermeldung erscheint? Und warum führt das bei der Rakete zum Absturz? (Nutzt euer neues Wissen über <span class="keyword-link" data-keyword="datentyp">Datentypen</span> aus den Tech-Specs!)
+                                Warum gibt das Programm einen falschen Wert aus, obwohl keine Fehlermeldung erscheint? Und warum führt das bei der Rakete zum Absturz?<br>
+                                <span class="inline-block mt-2">🔎 Im Code steckt ein <span class="keyword-link" data-keyword="datentyp">Datentyp</span>, der nicht im Skript steht. Findet ihn und recherchiert selbst: Was ist das für ein Typ und welche Grenzen hat er?</span>
                             </div>
                         </li>
                         <li class="flex items-start gap-3">
@@ -540,12 +541,12 @@ System.out.println("Uebertragener Wert: " + sensorWert);
                 text: "Ein älteres IT-System, das weiterverwendet wird, weil es sich bewährt hat – z.B. Navigationssoftware, die schon in der Ariane 4 zuverlässig geflogen ist. Diese Software war jedoch auf die kleineren Werte der Ariane 4 ausgelegt (16-Bit), was der neuen, schnelleren Ariane 5 zum Verhängnis wurde."
             },
             "datentyp": {
-                title: "Datentypen (z.B. short, int)",
-                text: "Sie bestimmen, wie viel Speicherplatz (Bits) eine Zahl im RAM bekommt. Ein <b>short</b> hat nur 16 Nullen und Einsen zur Verfügung. Damit kann man nur maximal bis +32.767 zählen. Für größere Zahlen braucht man einen <b>int</b> (32-Bit)."
+                title: "Datentypen",
+                text: "Sie bestimmen, wie viel Speicherplatz (Bits) eine Zahl bekommt – und damit, welche Zahlen überhaupt hineinpassen (Wertebereich). Mehr Bits bedeuten einen größeren Wertebereich."
             },
             "cast": {
                 title: "Type-Cast (Typumwandlung)",
-                text: "Mit einem Cast erzwingt man in Java die Umwandlung eines Datentyps in einen anderen (z.B. <code>(short) 40000.0</code>). <b>Achtung:</b> Ist der Ziel-Datentyp zu klein für die Zahl, kommt es zum Datenverlust (Überlauf): Die Zahl springt auf einen völlig falschen Wert – oft sogar ins Negative! Java meldet dabei keinen Fehler.<span class='block mt-4 text-base font-normal'>Mehr dazu: <a href='https://sudo-goofy.github.io/java-beginner/kapitel/03-variablen.html#casting' target='_blank' rel='noopener noreferrer' class='underline'>Was ist Casting?</a></span>"
+                text: "Mit einem Cast erzwingt man in Java die Umwandlung eines Datentyps in einen anderen (z.B. <code>(int) 3.7</code> ergibt 3). <b>Achtung:</b> Ist der Ziel-Datentyp zu klein für die Zahl, kommt es zum Datenverlust (Überlauf): Die Zahl springt auf einen völlig falschen Wert – oft sogar ins Negative! Java meldet dabei keinen Fehler.<span class='block mt-4 text-base font-normal'>Mehr dazu: <a href='https://sudo-goofy.github.io/java-beginner/kapitel/03-variablen.html#casting' target='_blank' rel='noopener noreferrer' class='underline'>Was ist Casting?</a></span>"
             },
             "hilfe": {
                 title: "Hilfekarten",
