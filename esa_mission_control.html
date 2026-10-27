@@ -134,17 +134,19 @@
             background-color: rgba(255, 87, 87, 0.1);
             padding: 0 4px;
             border-radius: 4px;
-            cursor: help;
+            cursor: pointer;
             transition: all 0.2s;
             font-weight: 700;
+            display: inline-block;
         }
 
-        .keyword-link:hover {
+        .keyword-link:hover,
+        .keyword-link:focus {
             background-color: var(--accent-yellow);
             border-bottom-style: solid;
             color: var(--main-black);
             transform: translateY(-1px);
-            display: inline-block;
+            outline: none;
         }
     </style>
 </head>
@@ -191,6 +193,9 @@
                     Holt euch den Code aus der gecrashten <code class="bg-black text-green-400 px-2 py-1 border-2 border-black rounded mx-1">Navigation.java</code>. 
                     Überschlagt die berechneten Werte erst im Kopf und bildet eine Hypothese. Kopiert den Code dann in eure IDE und führt ihn aus. 
                     Gleicht eure Erwartung mit der echten Ausgabe ab und bereitet den Bug-Report vor.
+                </p>
+                <p class="text-base font-semibold leading-relaxed mt-4">
+                    💡 Tipp: Begriffe mit <span class="keyword-link" data-keyword="hilfe">gestrichelter Markierung</span> könnt ihr anklicken – dann öffnet sich eine Hilfekarte.
                 </p>
             </div>
         </div>
@@ -273,21 +278,21 @@
                             <span class="bg-black text-white px-2 py-1 rounded text-sm font-mono mt-1">1</span>
                             <div>
                                 <strong class="uppercase text-red-600 block">Der Ist-Zustand</strong>
-                                Welcher physikalische Zielwert hätte eigentlich an das System übermittelt werden sollen und was gibt die IDE stattdessen aus? (Stichwort: Rückwärtsgang)
+                                Was hattet ihr vor dem Ausführen erwartet (eure Hypothese)? Welcher Wert hätte eigentlich an das System übermittelt werden sollen und was gibt die IDE stattdessen aus? (Stichwort: Rückwärtsgang)
                             </div>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="bg-black text-white px-2 py-1 rounded text-sm font-mono mt-1">2</span>
                             <div>
                                 <strong class="uppercase text-red-600 block">Root Cause (Die Ursache)</strong>
-                                Warum genau kommt es zu diesem Absturz? (Nutzt euer neues Wissen über <span class="keyword-link" data-keyword="datentyp">Datentypen</span> aus den Tech-Specs!)
+                                Warum gibt das Programm einen falschen Wert aus, obwohl keine Fehlermeldung erscheint? Und warum führt das bei der Rakete zum Absturz? (Nutzt euer neues Wissen über <span class="keyword-link" data-keyword="datentyp">Datentypen</span> aus den Tech-Specs!)
                             </div>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="bg-black text-white px-2 py-1 rounded text-sm font-mono mt-1">3</span>
                             <div>
                                 <strong class="uppercase text-red-600 block">Der Patch (Die Lösung)</strong>
-                                Wie lautet der korrigierte Code? Wie sieht der richtige <span class="keyword-link" data-keyword="cast">Cast</span> oder Datentyp aus?
+                                Wie lautet der korrigierte Code? Wie sieht der richtige <span class="keyword-link" data-keyword="cast">Cast</span> oder Datentyp aus? Bedenkt auch: Was müsstet ihr tun, wenn das Legacy-System wirklich nur 16-Bit-Werte annehmen kann?
                             </div>
                         </li>
                     </ul>
@@ -309,14 +314,17 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                     Kopieren
                 </button>
-                <pre class="p-6 pt-16 pb-8 retro-font text-lg md:text-xl overflow-x-auto selection:bg-green-700 selection:text-white"><code id="javaCodeBlock"><span class="text-green-200">double</span> schubkraft = <span class="text-green-100">8000.15</span>;
-<span class="text-green-200">int</span> triebwerke = <span class="text-green-100">5</span>;
+                <pre class="p-6 pt-16 pb-8 retro-font text-lg md:text-xl overflow-x-auto selection:bg-green-700 selection:text-white"><code id="javaCodeBlock"><span class="text-green-600">// Horizontaler Geschwindigkeitswert (Referenz Ariane 4)</span>
+<span class="text-green-200">double</span> vAriane4 = <span class="text-green-100">8000.15</span>;
+<span class="text-green-600">// Ariane 5 ist in der Startphase ca. 5x schneller</span>
+<span class="text-green-200">int</span> faktorAriane5 = <span class="text-green-100">5</span>;
 
-<span class="text-green-600">// Aktuelle Geschwindigkeit berechnen</span>
-<span class="text-green-200">double</span> vBerechnet = schubkraft * triebwerke;
+<span class="text-green-600">// Aktuellen Geschwindigkeitswert berechnen</span>
+<span class="text-green-200">double</span> vBerechnet = vAriane4 * faktorAriane5;
 
 <span class="text-green-600">// Legacy-System erfordert 16-Bit Ganzzahl.</span>
-<span class="text-green-600">// + 0.5 fuer kaufmaennisches Runden.</span>
+<span class="text-green-600">// + 0.5 rundet auf die naechste ganze Zahl</span>
+<span class="text-green-600">// (der Cast allein schneidet die Nachkommastellen nur ab).</span>
 <span class="text-green-200">short</span> sensorWert = (<span class="text-green-200">short</span>) (vBerechnet + <span class="text-green-100">0.5</span>); 
 
 System.out.println(<span class="text-green-100">"Uebertragener Wert: "</span> + sensorWert);
@@ -325,7 +333,7 @@ System.out.println(<span class="text-green-100">"Uebertragener Wert: "</span> + 
             </div>
             <div class="p-4 bg-gray-200 border-t-2 border-black rounded-b-lg text-sm font-bold flex items-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-                Füge diesen Code in die main-Methode deiner IDE ein. (C:\DEV\WORKSPACE)
+                Lege eine Klasse <code class="bg-white px-1 border border-black rounded">Navigation</code> mit main-Methode an und füge diesen Code in die main-Methode ein. (C:\DEV\WORKSPACE)
             </div>
         </div>
     </div>
@@ -347,7 +355,7 @@ System.out.println(<span class="text-green-100">"Uebertragener Wert: "</span> + 
                         Willkommen im Emergency QA-Team der ESA. Wir schreiben das Jahr 1996.
                     </p>
                     <p class="text-lg md:text-xl font-semibold mb-4 leading-relaxed">
-                        Vor wenigen Stunden ist unser <strong class="bg-yellow-200 px-1 border border-yellow-400">Flug 501 (Ariane 5)</strong> genau 39 Sekunden nach dem Start explodiert. Ein 370-Millionen-Euro-Feuerball. Die <span class="keyword-link text-red-700" data-keyword="telemetrie">Telemetrie</span> zeigt völlig absurde Daten: Das System dachte plötzlich, die Rakete würde mit Höchstgeschwindigkeit rückwärts fliegen und hat sie beim Versuch gegenzusteuern zerrissen.
+                        Vor wenigen Stunden ist unser <strong class="bg-yellow-200 px-1 border border-yellow-400">Flug 501 (Ariane 5)</strong> genau 39 Sekunden nach dem Start explodiert. Ein Feuerball im Wert von rund 370 Millionen US-Dollar. Die <span class="keyword-link text-red-700" data-keyword="telemetrie">Telemetrie</span> zeigt völlig absurde Daten: Das System dachte plötzlich, die Rakete würde mit Höchstgeschwindigkeit rückwärts fliegen und hat sie beim Versuch gegenzusteuern zerrissen.
                     </p>
                     <p class="text-lg md:text-xl font-bold text-red-600 leading-relaxed uppercase">
                         Wir haben ein Code-Fragment aus der Navigationseinheit der Blackbox geborgen. Euer Job als Junior-Entwickler: Findet den Bug, bevor der Code in die nächste Rakete geladen wird!
@@ -403,17 +411,21 @@ System.out.println(<span class="text-green-100">"Uebertragener Wert: "</span> + 
 
         // Copy Code Logic (Compatible with iframe environments)
         copyBtn.addEventListener('click', () => {
-            const rawCode = `double schubkraft = 8000.15;
-int triebwerke = 5;
+            const rawCode = `// Horizontaler Geschwindigkeitswert (Referenz Ariane 4)
+double vAriane4 = 8000.15;
+// Ariane 5 ist in der Startphase ca. 5x schneller
+int faktorAriane5 = 5;
 
-// Aktuelle Geschwindigkeit berechnen
-double vBerechnet = schubkraft * triebwerke;
+// Aktuellen Geschwindigkeitswert berechnen
+double vBerechnet = vAriane4 * faktorAriane5;
 
 // Legacy-System erfordert 16-Bit Ganzzahl.
-// + 0.5 fuer kaufmaennisches Runden.
-short sensorWert = (short) (vBerechnet + 0.5); 
+// + 0.5 rundet auf die naechste ganze Zahl
+// (der Cast allein schneidet die Nachkommastellen nur ab).
+short sensorWert = (short) (vBerechnet + 0.5);
 
-System.out.println("Uebertragener Wert: " + sensorWert);`;
+System.out.println("Uebertragener Wert: " + sensorWert);
+/* ZUR INFO: Der Bordcomputer erwartet hier ca. 40000 */`;
 
             const fallbackCopy = () => {
                 let textArea = document.createElement("textarea");
@@ -467,11 +479,11 @@ System.out.println("Uebertragener Wert: " + sensorWert);`;
         const glossary = {
             "telemetrie": {
                 title: "Telemetrie",
-                text: "Die automatische Übertragung von Messwerten von der Rakete zur Bodenstation. Wenn diese Daten fehlerhaft sind, 'sieht' der Bordcomputer eine falsche Realität und lenkt z.B. in die falsche Richtung."
+                text: "Die automatische Übertragung von Messwerten von der Rakete zur Bodenstation. So kann das Team am Boden live mitverfolgen, was der Bordcomputer gerade 'sieht' und tut – auch wenn er mit falschen Werten rechnet."
             },
             "legacy": {
                 title: "Legacy-System",
-                text: "Ein veraltetes IT-System (wie Windows 95 oder alte Raketensoftware). In der Raumfahrt wird alte Software oft weiterverwendet, weil sie sich bewährt hat. Das alte System der Ariane 4 verstand jedoch nur kleine Zahlen (16-Bit), was der neuen Ariane 5 zum Verhängnis wurde."
+                text: "Ein älteres IT-System, das weiterverwendet wird, weil es sich bewährt hat – z.B. Navigationssoftware, die schon in der Ariane 4 zuverlässig geflogen ist. Diese Software war jedoch auf die kleineren Werte der Ariane 4 ausgelegt (16-Bit), was der neuen, schnelleren Ariane 5 zum Verhängnis wurde."
             },
             "datentyp": {
                 title: "Datentypen (z.B. short, int)",
@@ -479,18 +491,32 @@ System.out.println("Uebertragener Wert: " + sensorWert);`;
             },
             "cast": {
                 title: "Type-Cast (Typumwandlung)",
-                text: "Mit einem Cast erzwingt man in Java die Umwandlung eines Datentyps in einen anderen (z.B. <code>(short) 40000.0</code>). <b>Achtung:</b> Ist der Ziel-Datentyp zu klein für die Zahl, kommt es zum Datenverlust (Überlauf) und die Zahl wird plötzlich negativ!"
+                text: "Mit einem Cast erzwingt man in Java die Umwandlung eines Datentyps in einen anderen (z.B. <code>(short) 40000.0</code>). <b>Achtung:</b> Ist der Ziel-Datentyp zu klein für die Zahl, kommt es zum Datenverlust (Überlauf): Die Zahl springt auf einen völlig falschen Wert – oft sogar ins Negative! Java meldet dabei keinen Fehler."
+            },
+            "hilfe": {
+                title: "Hilfekarten",
+                text: "Genau so funktioniert es: Klickt auf einen markierten Begriff, um eine kurze Erklärung zu bekommen. Mit „Verstanden“, dem X oder der Esc-Taste schließt ihr das Fenster wieder."
             }
         };
 
         // Event Listener an alle hervorgehobenen Wörter hängen
+        // (auch per Tastatur erreichbar: Tab + Enter/Leertaste)
         document.querySelectorAll('.keyword-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const keyword = e.target.getAttribute('data-keyword');
+            link.setAttribute('tabindex', '0');
+            link.setAttribute('role', 'button');
+            const openInfo = () => {
+                const keyword = link.getAttribute('data-keyword');
                 if (glossary[keyword]) {
                     infoTitle.innerHTML = glossary[keyword].title;
                     infoText.innerHTML = glossary[keyword].text;
                     infoModal.classList.remove('hidden');
+                }
+            };
+            link.addEventListener('click', openInfo);
+            link.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openInfo();
                 }
             });
         });
@@ -501,6 +527,13 @@ System.out.println("Uebertragener Wert: " + sensorWert);`;
         closeInfoBtnBottom.addEventListener('click', closeInfo);
         infoModal.addEventListener('click', (e) => {
             if(e.target === infoModal) closeInfo();
+        });
+
+        // Esc schließt das jeweils oberste Fenster (Story-Briefing bleibt bewusst offen)
+        document.addEventListener('keydown', (e) => {
+            if (e.key !== 'Escape') return;
+            if (!infoModal.classList.contains('hidden')) closeInfo();
+            else if (!modal.classList.contains('hidden')) closeModal();
         });
     </script>
 </body>
