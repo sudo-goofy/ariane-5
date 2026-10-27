@@ -433,9 +433,6 @@ System.out.println(<span class="text-green-100">"Uebertragener Wert: "</span> + 
             <div class="p-6">
                 <h3 id="infoTitle" class="text-2xl font-bold mb-3 uppercase border-b-2 border-black pb-2">Begriff</h3>
                 <p id="infoText" class="text-lg font-semibold leading-relaxed">Erklärungstext kommt hier rein.</p>
-                <div class="mt-6 flex justify-end">
-                    <button id="closeInfoBtnBottom" class="blease-button px-6 py-2 bg-gray-200 text-black" style="box-shadow: 4px 4px 0px var(--main-black);">Verstanden</button>
-                </div>
             </div>
         </div>
     </div>
@@ -527,7 +524,6 @@ System.out.println("Uebertragener Wert: " + sensorWert);
         const infoTitle = document.getElementById('infoTitle');
         const infoText = document.getElementById('infoText');
         const closeInfoBtn = document.getElementById('closeInfoBtn');
-        const closeInfoBtnBottom = document.getElementById('closeInfoBtnBottom');
 
         // Lexikon-Einträge
         const glossary = {
@@ -549,7 +545,7 @@ System.out.println("Uebertragener Wert: " + sensorWert);
             },
             "hilfe": {
                 title: "Hilfekarten",
-                text: "Genau so funktioniert es: Klickt auf einen markierten Begriff, um eine kurze Erklärung zu bekommen. Mit „Verstanden“, dem X oder der Esc-Taste schließt ihr das Fenster wieder."
+                text: "Genau so funktioniert es: Klickt auf einen markierten Begriff, um eine kurze Erklärung zu bekommen. Mit dem X oder der Esc-Taste schließt ihr das Fenster wieder."
             }
         };
 
@@ -578,7 +574,6 @@ System.out.println("Uebertragener Wert: " + sensorWert);
         // Schließen-Logik für das Info-Modal
         const closeInfo = () => infoModal.classList.add('hidden');
         closeInfoBtn.addEventListener('click', closeInfo);
-        closeInfoBtnBottom.addEventListener('click', closeInfo);
         infoModal.addEventListener('click', (e) => {
             if(e.target === infoModal) closeInfo();
         });
